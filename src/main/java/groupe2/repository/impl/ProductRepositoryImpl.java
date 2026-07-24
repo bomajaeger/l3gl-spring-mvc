@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -16,7 +15,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public void save(Product product) {
         entityManager.merge(product);
     }
@@ -34,7 +32,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    @Transactional
     public void delete(Long id) {
         Product product = findById(id);
 

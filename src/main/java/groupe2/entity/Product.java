@@ -15,6 +15,12 @@ public class Product {
 
     private double prix;
 
+    // Côté propriétaire de la relation : c'est cette classe qui porte la colonne type_id.
+    // ManyToOne est EAGER par défaut, donc ${product.type.libelle} fonctionne en JSP.
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private Type type;
+
     public Product() {
     }
 
@@ -47,6 +53,9 @@ public class Product {
     public void setPrix(double prix) {
         this.prix = prix;
     }
+
+    public Type getType() { return type; }
+    public void setType(Type type) { this.type = type; }
 
     @Override
     public String toString() {

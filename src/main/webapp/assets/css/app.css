@@ -1,0 +1,431 @@
+/* ==========================================================================
+   Registre — feuille de style de l'application
+   --------------------------------------------------------------------------
+   Palette : « encre » (bleu-ardoise très sombre) pour le rail de navigation,
+             « papier » (gris froid) pour le fond de page,
+             « tampon » (bordeaux) réservé aux actions et aux références.
+   Le bordeaux n'apparaît que sur les boutons primaires, les références de
+   ligne et l'onglet actif : c'est le seul accent de couleur de l'interface.
+   ========================================================================== */
+
+:root {
+    --encre:        #16202A;
+    --encre-clair:  #24333F;
+    --encre-texte:  #8A9AA6;
+    --papier:       #E9EDEF;
+    --surface:      #FFFFFF;
+    --trait:        #CBD4D9;
+    --sourdine:     #67757F;
+    --tampon:       #8E1B3F;
+    --tampon-vif:   #A82250;
+    --valide:       #1C6B4B;
+
+    --rail:  228px;
+    --rayon: 4px;
+    --ombre: 0 1px 2px rgba(22,32,42,.05), 0 10px 28px -16px rgba(22,32,42,.35);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0;
+    background: var(--papier);
+    color: var(--encre);
+    font-family: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+/* Micro-libellés : en-têtes de colonnes, étiquettes de formulaire, surtitres.
+   Toujours en capitales, très espacés, jamais en gras extrême.              */
+.micro {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--sourdine);
+}
+
+/* ==========================================================================
+   1. Rail de navigation
+   ========================================================================== */
+
+.rail {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--rail);
+    background: var(--encre);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 28px 0 20px;
+    z-index: 20;
+}
+
+.rail-marque {
+    padding: 0 24px 26px;
+    border-bottom: 1px solid var(--encre-clair);
+}
+
+.rail-marque .titre {
+    margin: 6px 0 0;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+}
+
+.rail-marque .micro { color: var(--tampon-vif); }
+
+.rail-nav { padding: 18px 0; display: flex; flex-direction: column; }
+
+.rail-nav a {
+    position: relative;
+    padding: 11px 24px;
+    color: var(--encre-texte);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color .15s ease, background-color .15s ease;
+}
+
+.rail-nav a::before {          /* le liseré qui marque l'onglet courant */
+    content: "";
+    position: absolute;
+    left: 0; top: 6px; bottom: 6px;
+    width: 3px;
+    background: transparent;
+    transition: background-color .15s ease;
+}
+
+.rail-nav a:hover { color: #fff; background: var(--encre-clair); }
+
+.rail-nav a.actif { color: #fff; }
+.rail-nav a.actif::before { background: var(--tampon-vif); }
+
+.rail-pied {
+    margin-top: auto;
+    padding: 0 24px;
+    font-size: 11px;
+    color: var(--encre-texte);
+}
+
+/* ==========================================================================
+   2. Zone de contenu
+   ========================================================================== */
+
+.contenu {
+    margin-left: var(--rail);
+    padding: 44px 40px 80px;
+}
+
+.cadre { max-width: 1000px; margin: 0 auto; }
+
+.entete {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.entete h1 {
+    margin: 4px 0 0;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -.025em;
+}
+
+.compteur {
+    display: inline-block;
+    margin-left: 10px;
+    font-family: 'DM Mono', ui-monospace, monospace;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--sourdine);
+    vertical-align: 3px;
+}
+
+/* ==========================================================================
+   3. Messages
+   ========================================================================== */
+
+.message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    background: var(--surface);
+    border-left: 3px solid var(--valide);
+    border-radius: 0 var(--rayon) var(--rayon) 0;
+    box-shadow: var(--ombre);
+    font-size: 14px;
+}
+
+.message.erreur { border-left-color: var(--tampon); }
+
+/* ==========================================================================
+   4. Tableau — la « page de registre »
+   ========================================================================== */
+
+.panneau {
+    background: var(--surface);
+    border-radius: var(--rayon);
+    box-shadow: var(--ombre);
+    overflow: hidden;
+}
+
+table.registre {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.registre th {
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--trait);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--sourdine);
+    white-space: nowrap;
+}
+
+table.registre td {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--papier);
+    vertical-align: middle;
+}
+
+table.registre tbody tr:last-child td { border-bottom: 0; }
+
+table.registre tbody tr { position: relative; transition: background-color .12s ease; }
+table.registre tbody tr:hover { background: #F5F8F9; }
+
+/* La référence estampillée : le numéro de ligne du registre. */
+.ref {
+    font-family: 'DM Mono', ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--tampon);
+    border: 1px solid rgba(142,27,63,.28);
+    border-radius: 3px;
+    padding: 2px 7px;
+    white-space: nowrap;
+}
+
+.nom { font-weight: 500; }
+
+/* Étiquette de type, façon pastille d'inventaire. */
+.etiquette {
+    display: inline-block;
+    padding: 3px 9px;
+    border: 1px solid var(--trait);
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--sourdine);
+    white-space: nowrap;
+}
+
+.etiquette.vide { border-style: dashed; opacity: .7; }
+
+/* Colonne des montants : alignée à droite, chiffres à chasse fixe pour que
+   les unités, dizaines et centaines s'empilent exactement.                  */
+.col-montant { text-align: right; }
+
+.montant {
+    font-family: 'DM Mono', ui-monospace, monospace;
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.01em;
+    white-space: nowrap;
+}
+
+.montant .unite {
+    margin-left: 5px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    color: var(--sourdine);
+}
+
+.col-actions { text-align: right; white-space: nowrap; }
+
+.lien-action {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--sourdine);
+    text-decoration: none;
+    padding: 4px 2px;
+    border-bottom: 1px solid transparent;
+    transition: color .12s ease, border-color .12s ease;
+}
+
+.lien-action:hover { color: var(--encre); border-bottom-color: var(--trait); }
+.lien-action.danger:hover { color: var(--tampon); border-bottom-color: var(--tampon); }
+
+.form-inline { display: inline; margin-left: 14px; }
+
+.form-inline button {
+    background: none;
+    border: 0;
+    padding: 4px 2px;
+    cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--sourdine);
+    border-bottom: 1px solid transparent;
+    transition: color .12s ease, border-color .12s ease;
+}
+
+.form-inline button:hover { color: var(--tampon); border-bottom-color: var(--tampon); }
+
+/* ==========================================================================
+   5. État vide
+   ========================================================================== */
+
+.vide {
+    padding: 64px 24px;
+    text-align: center;
+}
+
+.vide p {
+    margin: 0 0 20px;
+    color: var(--sourdine);
+    font-size: 15px;
+}
+
+/* ==========================================================================
+   6. Boutons
+   ========================================================================== */
+
+.bouton {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    border-radius: var(--rayon);
+    background: var(--tampon);
+    color: #fff;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .15s ease;
+}
+
+.bouton:hover { background: var(--tampon-vif); }
+
+.bouton.secondaire {
+    background: transparent;
+    color: var(--sourdine);
+    border-color: var(--trait);
+}
+
+.bouton.secondaire:hover { background: var(--surface); color: var(--encre); }
+
+/* ==========================================================================
+   7. Formulaires
+   ========================================================================== */
+
+.fiche {
+    max-width: 520px;
+    background: var(--surface);
+    border-radius: var(--rayon);
+    box-shadow: var(--ombre);
+    padding: 32px;
+}
+
+.champ { margin-bottom: 22px; }
+
+.champ label { display: block; margin-bottom: 7px; }
+
+.champ input[type="text"],
+.champ input[type="number"],
+.champ select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--trait);
+    border-radius: var(--rayon);
+    background: var(--surface);
+    font: inherit;
+    font-size: 15px;
+    color: var(--encre);
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.champ input[type="number"] {
+    font-family: 'DM Mono', ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+}
+
+.champ input:focus, .champ select:focus {
+    outline: none;
+    border-color: var(--tampon);
+    box-shadow: 0 0 0 3px rgba(142,27,63,.12);
+}
+
+.champ .aide {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--sourdine);
+}
+
+.actions-fiche {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--papier);
+}
+
+/* ==========================================================================
+   8. Accessibilité et adaptation mobile
+   ========================================================================== */
+
+a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--tampon);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}
+
+@media (max-width: 820px) {
+    .rail {
+        position: static;
+        width: auto;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 18px;
+        overflow-x: auto;
+    }
+    .rail-marque { padding: 0 18px 0 0; border-bottom: 0; border-right: 1px solid var(--encre-clair); }
+    .rail-marque .titre { font-size: 17px; }
+    .rail-nav { flex-direction: row; padding: 0; }
+    .rail-nav a { padding: 8px 14px; }
+    .rail-nav a::before { top: auto; bottom: 0; left: 14px; right: 14px; width: auto; height: 2px; }
+    .rail-pied { display: none; }
+
+    .contenu { margin-left: 0; padding: 26px 18px 60px; }
+    .entete { flex-direction: column; align-items: flex-start; }
+
+    .panneau { overflow-x: auto; }
+    table.registre { min-width: 620px; }
+}
