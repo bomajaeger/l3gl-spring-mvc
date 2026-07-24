@@ -1,0 +1,7 @@
+target/
+.idea/
+.smarttomcat/
+.git/
+*.iml
+Dockerfile
+.dockerignore
